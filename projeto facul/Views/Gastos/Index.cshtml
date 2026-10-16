@@ -1,0 +1,138 @@
+@model projeto_facul.Models.GastosIndexViewModel
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Lista de Gastos";
+    var br = new CultureInfo("pt-BR");
+    string[] mesesCurtos = { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" };
+
+    // Mantém os filtros ao trocar de página
+    Dictionary<string, string> Rota(int pagina) => new()
+    {
+        ["busca"] = Model.Busca ?? "",
+        ["contexto"] = Model.Contexto,
+        ["categoria"] = Model.Categoria,
+        ["mes"] = Model.Mes,
+        ["pagina"] = pagina.ToString()
+    };
+
+    // Mostra no máximo 5 números de página em volta da página atual
+    var primeiraPagina = Math.Max(1, Math.Min(Model.Pagina - 2, Model.TotalPaginas - 4));
+    var ultimaPagina = Math.Min(Model.TotalPaginas, primeiraPagina + 4);
+}
+
+<div class="itz-cabecalho">
+    <div>
+        <h1 class="itz-titulo">Lista de Gastos</h1>
+        <p class="itz-subtitulo">Explore, filtre e pesquise por produtos ou estabelecimentos de suas compras detalhadas.</p>
+    </div>
+    <div class="itz-cabecalho-acoes">
+        <a class="itz-btn itz-btn-secundario" asp-action="Create">@Icones.Mais Novo Gasto</a>
+        <a class="itz-btn itz-btn-primario" asp-action="Exportar"
+           asp-route-busca="@Model.Busca" asp-route-contexto="@Model.Contexto"
+           asp-route-categoria="@Model.Categoria" asp-route-mes="@Model.Mes">@Icones.Exportar Exportar Tabela (CSV)</a>
+    </div>
+</div>
+
+<form method="get" asp-action="Index" class="itz-card itz-filtros" id="form-filtros">
+    <label class="itz-busca">
+        @Icones.Busca
+        <input type="search" name="busca" value="@Model.Busca" placeholder="Pesquisar por produto, estabelecimento ou tag..." aria-label="Pesquisar" />
+    </label>
+
+    <div class="itz-select contexto">
+        <span class="itz-select-rotulo">Contexto:</span>
+        <select name="contexto" aria-label="Contexto">
+            @foreach (var c in Gasto.Contextos.Prepend("Todos"))
+            {
+                <option value="@c" selected="@(c == Model.Contexto)">@c</option>
+            }
+        </select>
+        <span class="itz-select-seta">@Icones.SetaBaixo</span>
+    </div>
+
+    <div class="itz-select categoria">
+        <span class="itz-select-rotulo">Categoria:</span>
+        <select name="categoria" aria-label="Categoria">
+            @foreach (var c in Gasto.Categorias.Prepend("Todas"))
+            {
+                <option value="@c" selected="@(c == Model.Categoria)">@c</option>
+            }
+        </select>
+        <span class="itz-select-seta">@Icones.SetaBaixo</span>
+    </div>
+
+    <div class="itz-select mes">
+        <span class="itz-select-icone">@Icones.Calendario</span>
+        <select name="mes" aria-label="Mês">
+            @foreach (var m in Model.Meses)
+            {
+                <option value="@m.Valor" selected="@(m.Valor == Model.Mes)">@m.Texto</option>
+            }
+            <option value="todos" selected="@(Model.Mes == "todos")">Todos os meses</option>
+        </select>
+        <span class="itz-select-seta">@Icones.SetaBaixo</span>
+    </div>
+</form>
+
+<div class="itz-card itz-tabela-card">
+    <table class="itz-tabela">
+        <thead>
+            <tr>
+                <th class="col-item">Item / Descrição</th>
+                <th class="col-estab">Estabelecimento</th>
+                <th class="col-cat">Categoria</th>
+                <th class="col-data">Data</th>
+                <th class="col-valor">Valor</th>
+                <th class="col-acoes">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Itens.Any())
+            {
+                <tr><td colspan="6" class="itz-vazio">Nenhum gasto encontrado com esses filtros.</td></tr>
+            }
+            @foreach (var item in Model.Itens)
+            {
+                <tr>
+                    <td>
+                        <a class="itz-item" asp-action="Details" asp-route-id="@item.Id" title="@item.Descricao">
+                            @Icones.Item <span>@item.Descricao</span>
+                        </a>
+                    </td>
+                    <td><span class="itz-truncar" title="@item.Estabelecimento">@item.Estabelecimento</span></td>
+                    <td><span class="itz-badge">@item.Categoria</span></td>
+                    <td class="itz-data">@($"{item.Data:dd} {mesesCurtos[item.Data.Month - 1]}, {item.Data:HH:mm}")</td>
+                    <td class="itz-valor">@item.Valor.ToString("C", br)</td>
+                    <td>
+                        <div class="itz-acoes">
+                            <a class="itz-acao editar" asp-action="Edit" asp-route-id="@item.Id" title="Editar">@Icones.Editar</a>
+                            <a class="itz-acao excluir" asp-action="Delete" asp-route-id="@item.Id" title="Excluir">@Icones.Lixeira</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="itz-rodape">
+        <span class="itz-rodape-info">Mostrando @Model.Inicio-@Model.Fim de @Model.TotalItens lançamentos</span>
+        <nav class="itz-paginacao" aria-label="Paginação">
+            <a class="itz-pagina @(Model.Pagina <= 1 ? "desabilitada" : "")" asp-action="Index" asp-all-route-data="Rota(Model.Pagina - 1)">Anterior</a>
+            @for (var p = primeiraPagina; p <= ultimaPagina; p++)
+            {
+                <a class="itz-pagina @(p == Model.Pagina ? "ativa" : "")" asp-action="Index" asp-all-route-data="Rota(p)">@p</a>
+            }
+            <a class="itz-pagina @(Model.Pagina >= Model.TotalPaginas ? "desabilitada" : "")" asp-action="Index" asp-all-route-data="Rota(Model.Pagina + 1)">Próximo</a>
+        </nav>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Os filtros de lista aplicam assim que mudam; a busca aplica com Enter
+        document.querySelectorAll('#form-filtros select').forEach(function (s) {
+            s.addEventListener('change', function () { s.form.submit(); });
+        });
+    </script>
+}

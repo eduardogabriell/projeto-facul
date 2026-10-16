@@ -1,0 +1,22 @@
+@model projeto_facul.Models.Gasto
+
+@{
+    ViewData["Title"] = "Excluir Gasto";
+}
+
+<div class="itz-cabecalho">
+    <div>
+        <h1 class="itz-titulo">Excluir Gasto</h1>
+        <p class="itz-subtitulo">Confira os dados antes de confirmar.</p>
+    </div>
+</div>
+
+<div class="itz-card itz-form-card">
+    <p class="itz-aviso">Tem certeza que deseja excluir este gasto? Esta ação não pode ser desfeita.</p>
+    <partial name="_DadosGasto" model="Model" />
+    <form asp-action="Delete" class="itz-form-acoes">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="itz-btn itz-btn-perigo">Excluir</button>
+        <a asp-action="Index" class="itz-btn itz-btn-secundario">Cancelar</a>
+    </form>
+</div>

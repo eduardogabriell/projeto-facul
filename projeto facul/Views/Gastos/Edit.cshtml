@@ -1,0 +1,25 @@
+@model projeto_facul.Models.Gasto
+
+@{
+    ViewData["Title"] = "Editar Gasto";
+}
+
+<div class="itz-cabecalho">
+    <div>
+        <h1 class="itz-titulo">Editar Gasto</h1>
+        <p class="itz-subtitulo">Altere os dados do gasto e salve.</p>
+    </div>
+</div>
+
+<form asp-action="Edit" class="itz-card itz-form-card">
+    <input type="hidden" asp-for="Id" />
+    <partial name="_CamposGasto" model="Model" />
+    <div class="itz-form-acoes">
+        <button type="submit" class="itz-btn itz-btn-primario">Salvar Alterações</button>
+        <a asp-action="Index" class="itz-btn itz-btn-secundario">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

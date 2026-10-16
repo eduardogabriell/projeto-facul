@@ -1,0 +1,20 @@
+@model projeto_facul.Models.Gasto
+
+@{
+    ViewData["Title"] = "Detalhes do Gasto";
+}
+
+<div class="itz-cabecalho">
+    <div>
+        <h1 class="itz-titulo">Detalhes do Gasto</h1>
+        <p class="itz-subtitulo">Informações completas do lançamento.</p>
+    </div>
+</div>
+
+<div class="itz-card itz-form-card">
+    <partial name="_DadosGasto" model="Model" />
+    <div class="itz-form-acoes">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="itz-btn itz-btn-primario">Editar</a>
+        <a asp-action="Index" class="itz-btn itz-btn-secundario">Voltar para a lista</a>
+    </div>
+</div>

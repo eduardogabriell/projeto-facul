@@ -1,0 +1,37 @@
+@model projeto_facul.Models.Gasto
+
+<div asp-validation-summary="ModelOnly"></div>
+<div class="itz-form-grade">
+    <div class="itz-campo inteiro">
+        <label asp-for="Descricao"></label>
+        <input asp-for="Descricao" placeholder="Ex.: Café Especial Torrado 500g" />
+        <span asp-validation-for="Descricao" class="itz-erro"></span>
+    </div>
+    <div class="itz-campo inteiro">
+        <label asp-for="Estabelecimento"></label>
+        <input asp-for="Estabelecimento" placeholder="Ex.: Pão de Açúcar S/A" />
+        <span asp-validation-for="Estabelecimento" class="itz-erro"></span>
+    </div>
+    <div class="itz-campo">
+        <label asp-for="Categoria"></label>
+        <select asp-for="Categoria" asp-items="@(new SelectList(Gasto.Categorias))">
+            <option value="">Selecione...</option>
+        </select>
+        <span asp-validation-for="Categoria" class="itz-erro"></span>
+    </div>
+    <div class="itz-campo">
+        <label asp-for="Contexto"></label>
+        <select asp-for="Contexto" asp-items="@(new SelectList(Gasto.Contextos))"></select>
+        <span asp-validation-for="Contexto" class="itz-erro"></span>
+    </div>
+    <div class="itz-campo">
+        <label asp-for="Valor"></label>
+        <input asp-for="Valor" value="@(ViewData.ModelState.TryGetValue("Valor", out var digitado) ? digitado.AttemptedValue : Model?.Valor > 0 ? Model.Valor.ToString("0.00") : "")" inputmode="decimal" placeholder="Ex.: 24.90" />
+        <span asp-validation-for="Valor" class="itz-erro"></span>
+    </div>
+    <div class="itz-campo">
+        <label asp-for="Data"></label>
+        <input asp-for="Data" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+        <span asp-validation-for="Data" class="itz-erro"></span>
+    </div>
+</div>

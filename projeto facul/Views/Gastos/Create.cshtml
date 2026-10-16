@@ -1,0 +1,24 @@
+@model projeto_facul.Models.Gasto
+
+@{
+    ViewData["Title"] = "Novo Gasto";
+}
+
+<div class="itz-cabecalho">
+    <div>
+        <h1 class="itz-titulo">Novo Gasto</h1>
+        <p class="itz-subtitulo">Adicione um gasto manualmente preenchendo os campos abaixo.</p>
+    </div>
+</div>
+
+<form asp-action="Create" class="itz-card itz-form-card">
+    <partial name="_CamposGasto" model="Model" />
+    <div class="itz-form-acoes">
+        <button type="submit" class="itz-btn itz-btn-primario">Salvar Gasto</button>
+        <a asp-action="Index" class="itz-btn itz-btn-secundario">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

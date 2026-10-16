@@ -1,0 +1,228 @@
+/* Itemiza - estilos das telas de Gastos */
+:root {
+    --itz-verde: #0f968a;
+    --itz-verde-escuro: #0c7f75;
+    --itz-verde-claro: #e8f7f3;
+    --itz-texto: #1c1c1e;
+    --itz-texto-2: #3f3f46;
+    --itz-cinza: #71717a;
+    --itz-borda: #e7e7ea;
+    --itz-fundo: #f5f5f4;
+    --itz-vermelho: #e11d48;
+    --itz-vermelho-claro: #fde4e8;
+}
+
+* { box-sizing: border-box; }
+
+body.itz {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    background: var(--itz-fundo);
+    color: var(--itz-texto);
+    font-family: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.itz a { color: inherit; text-decoration: none; }
+
+/* ---------- Barra lateral ---------- */
+.itz-sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid var(--itz-borda);
+    display: flex;
+    flex-direction: column;
+    padding: 28px 12px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.itz-brand { display: flex; align-items: center; gap: 10px; padding: 0 10px 30px; }
+.itz-brand-logo {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: var(--itz-verde); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.itz-brand-logo svg { width: 17px; height: 17px; }
+.itz-brand-nome { font-size: 15px; font-weight: 700; line-height: 1.1; }
+.itz-brand-sub { font-size: 9px; color: var(--itz-cinza); text-transform: uppercase; letter-spacing: .02em; margin-top: 3px; }
+
+.itz-nav { display: flex; flex-direction: column; gap: 3px; }
+.itz-nav-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 12px; border-radius: 8px;
+    font-size: 12.5px; font-weight: 500; color: var(--itz-texto-2);
+}
+.itz-nav-item svg { width: 16px; height: 16px; color: #52525b; }
+.itz-nav-item:hover { background: #f4f4f5; }
+.itz-nav-item.ativo { background: var(--itz-verde-claro); color: var(--itz-verde); font-weight: 600; }
+.itz-nav-item.ativo svg { color: var(--itz-verde); }
+
+.itz-usuario {
+    margin-top: auto;
+    border-top: 1px solid var(--itz-borda);
+    padding: 14px 4px 18px;
+    display: flex; align-items: center; gap: 10px;
+}
+.itz-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #c79a7a, #8a5a3c); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; flex-shrink: 0;
+}
+.itz-usuario-dados { min-width: 0; flex: 1; }
+.itz-usuario-nome { font-size: 12px; font-weight: 600; }
+.itz-usuario-email { font-size: 10.5px; color: var(--itz-cinza); overflow: hidden; text-overflow: ellipsis; }
+.itz-usuario-config { color: #52525b; display: inline-flex; }
+.itz-usuario-config svg { width: 16px; height: 16px; }
+
+/* ---------- Conteúdo ---------- */
+.itz-main { flex: 1; min-width: 0; padding: 34px 34px 40px 32px; }
+
+.itz-cabecalho { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 44px; }
+.itz-titulo { font-size: 22px; font-weight: 700; margin: 0 0 6px; letter-spacing: -.01em; }
+.itz-subtitulo { margin: 0; color: var(--itz-cinza); font-size: 12px; }
+.itz-cabecalho-acoes { display: flex; gap: 8px; flex-shrink: 0; }
+
+.itz-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 30px; padding: 0 13px; border-radius: 7px;
+    font: inherit; font-size: 12px; font-weight: 600;
+    border: 1px solid transparent; cursor: pointer; white-space: nowrap;
+}
+.itz-btn-primario { background: var(--itz-verde); color: #fff !important; }
+.itz-btn-primario:hover { background: var(--itz-verde-escuro); }
+.itz-btn-secundario { background: #fff; color: var(--itz-texto) !important; border-color: var(--itz-borda); }
+.itz-btn-secundario:hover { background: #fafafa; }
+.itz-btn-perigo { background: var(--itz-vermelho); color: #fff !important; }
+
+.itz-card {
+    background: #fff;
+    border: 1px solid #ececee;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
+}
+
+/* ---------- Filtros ---------- */
+.itz-filtros { display: flex; align-items: center; gap: 12px; padding: 18px 18px; margin-bottom: 20px; }
+.itz-busca { position: relative; flex: 1; min-width: 180px; }
+.itz-busca svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: #52525b; }
+.itz-busca input {
+    width: 100%; height: 30px; padding: 0 12px 0 36px;
+    border: 1px solid var(--itz-borda); border-radius: 6px;
+    font: inherit; font-size: 12px; color: var(--itz-texto); background: #fff;
+}
+.itz-busca input::placeholder { color: #a1a1aa; }
+.itz-busca input:focus, .itz-select select:focus { outline: 2px solid rgba(15, 150, 138, .25); border-color: var(--itz-verde); }
+
+.itz-select { position: relative; display: inline-flex; align-items: center; }
+.itz-select select {
+    appearance: none; -webkit-appearance: none;
+    height: 30px; border: 1px solid var(--itz-borda); border-radius: 6px; background: #fff;
+    font: inherit; font-size: 12px; font-weight: 600; color: var(--itz-texto);
+    padding: 0 30px 0 12px; cursor: pointer;
+}
+.itz-select .itz-select-rotulo { position: absolute; left: 12px; font-size: 12px; color: var(--itz-texto-2); pointer-events: none; }
+.itz-select .itz-select-icone { position: absolute; left: 11px; color: var(--itz-texto-2); pointer-events: none; display: inline-flex; }
+.itz-select .itz-select-seta { position: absolute; right: 11px; pointer-events: none; color: var(--itz-texto-2); display: inline-flex; }
+.itz-select.contexto select { padding-left: 70px; color: var(--itz-verde); }
+.itz-select.categoria select { padding-left: 78px; }
+.itz-select.mes select { padding-left: 32px; }
+
+/* ---------- Tabela ---------- */
+.itz-tabela-card { padding: 14px 18px 18px; }
+.itz-tabela { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.itz-tabela th {
+    text-align: left; font-size: 11.5px; font-weight: 600; color: var(--itz-texto-2);
+    padding: 4px 0 8px; border-bottom: 1px solid #dcdce0;
+}
+.itz-tabela td { padding: 0; height: 48px; border-bottom: 1px solid var(--itz-borda); vertical-align: middle; font-size: 12.5px; }
+.itz-tabela .col-item { width: 15.5%; }
+.itz-tabela .col-estab { width: 24%; }
+.itz-tabela .col-cat { width: 18.5%; }
+.itz-tabela .col-data { width: 15%; }
+.itz-tabela .col-valor { width: 14%; text-align: right; }
+.itz-tabela .col-acoes { width: 13%; text-align: center; }
+
+.itz-item { display: flex; align-items: center; gap: 8px; font-weight: 600; padding-right: 12px; }
+.itz-item svg { flex-shrink: 0; color: #71717a; }
+.itz-item span, .itz-truncar { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.itz-truncar { display: block; padding-right: 12px; color: var(--itz-texto-2); }
+.itz-data { color: var(--itz-cinza); }
+.itz-valor { font-weight: 700; text-align: right; white-space: nowrap; }
+
+.itz-badge {
+    display: inline-block; padding: 3px 7px; border-radius: 4px;
+    background: var(--itz-verde-claro); color: var(--itz-verde);
+    font-size: 10.5px; font-weight: 600; white-space: nowrap;
+}
+
+.itz-acoes { display: flex; justify-content: center; gap: 9px; }
+.itz-acao {
+    width: 23px; height: 23px; border-radius: 5px;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.itz-acao.editar { background: #f0f0f1; color: #3f3f46 !important; }
+.itz-acao.editar:hover { background: #e4e4e7; }
+.itz-acao.excluir { background: var(--itz-vermelho-claro); color: var(--itz-vermelho) !important; }
+.itz-acao.excluir:hover { background: #fbcfd8; }
+
+.itz-vazio { text-align: center; color: var(--itz-cinza); padding: 40px 0 !important; height: auto !important; }
+
+.itz-rodape { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; }
+.itz-rodape-info { color: var(--itz-cinza); font-size: 11.5px; }
+.itz-paginacao { display: flex; gap: 6px; }
+.itz-pagina {
+    min-width: 25px; height: 23px; padding: 0 8px; border-radius: 4px;
+    border: 1px solid var(--itz-borda); background: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11.5px; color: var(--itz-texto);
+}
+.itz-pagina:hover { background: #fafafa; }
+.itz-pagina.ativa { background: var(--itz-verde); border-color: var(--itz-verde); color: #fff !important; font-weight: 600; }
+.itz-pagina.desabilitada { color: #a1a1aa; pointer-events: none; }
+
+/* ---------- Formulários (criar / editar / excluir / detalhes) ---------- */
+.itz-form-card { padding: 24px; max-width: 640px; }
+.itz-form-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+.itz-campo { display: flex; flex-direction: column; gap: 6px; }
+.itz-campo.inteiro { grid-column: 1 / -1; }
+.itz-campo label { font-size: 12px; font-weight: 600; color: var(--itz-texto-2); }
+.itz-campo input, .itz-campo select {
+    height: 34px; padding: 0 11px; border: 1px solid var(--itz-borda); border-radius: 6px;
+    font: inherit; font-size: 13px; color: var(--itz-texto); background: #fff;
+}
+.itz-campo input:focus, .itz-campo select:focus { outline: 2px solid rgba(15, 150, 138, .25); border-color: var(--itz-verde); }
+.itz-erro, .itz-campo .field-validation-error { color: var(--itz-vermelho); font-size: 11.5px; }
+.itz-campo .input-validation-error { border-color: var(--itz-vermelho); }
+.validation-summary-errors ul { margin: 0 0 14px; padding-left: 18px; color: var(--itz-vermelho); }
+.itz-form-acoes { display: flex; gap: 8px; margin-top: 22px; }
+
+.itz-detalhes { display: grid; grid-template-columns: 150px 1fr; gap: 12px 16px; margin: 0; }
+.itz-detalhes dt { font-weight: 600; color: var(--itz-texto-2); }
+.itz-detalhes dd { margin: 0; }
+.itz-aviso { margin: 0 0 18px; color: var(--itz-texto-2); font-size: 13px; }
+
+/* ---------- Telas menores ---------- */
+@media (max-width: 1100px) {
+    .itz-filtros { flex-wrap: wrap; }
+    .itz-busca { flex-basis: 100%; }
+}
+
+@media (max-width: 900px) {
+    body.itz { flex-direction: column; }
+    .itz-sidebar { width: 100%; height: auto; position: static; padding: 16px; }
+    .itz-brand { padding-bottom: 14px; }
+    .itz-nav { flex-direction: row; flex-wrap: wrap; }
+    .itz-usuario { display: none; }
+    .itz-main { padding: 20px 16px; }
+    .itz-cabecalho { flex-direction: column; margin-bottom: 24px; }
+    .itz-filtros { flex-wrap: wrap; }
+    .itz-tabela-card { overflow-x: auto; }
+    .itz-tabela { min-width: 760px; }
+    .itz-form-grade { grid-template-columns: 1fr; }
+}

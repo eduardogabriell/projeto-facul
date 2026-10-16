@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Itemiza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="~/css/itemiza.css" asp-append-version="true" />
+</head>
+<body class="itz">
+    <aside class="itz-sidebar">
+        <div class="itz-brand">
+            <span class="itz-brand-logo">@Icones.Logo</span>
+            <div>
+                <div class="itz-brand-nome">Itemiza</div>
+                <div class="itz-brand-sub">Sistema de Gastos</div>
+            </div>
+        </div>
+
+        <nav class="itz-nav">
+            <a class="itz-nav-item" asp-controller="Home" asp-action="Index">@Icones.Casa <span>Painel Inicial</span></a>
+            <a class="itz-nav-item ativo" asp-controller="Gastos" asp-action="Index">@Icones.Lista <span>Lista de Gastos</span></a>
+            <a class="itz-nav-item" href="#" title="Em breve">@Icones.Pasta <span>Gestão de Contextos</span></a>
+            <a class="itz-nav-item" href="#" title="Em breve">@Icones.Escanear <span>Escanear Nota Fiscal</span></a>
+        </nav>
+
+        <div class="itz-usuario">
+            <span class="itz-avatar">MS</span>
+            <div class="itz-usuario-dados">
+                <div class="itz-usuario-nome">Mariana Silva</div>
+                <div class="itz-usuario-email">mariana@email.com</div>
+            </div>
+            <a href="#" class="itz-usuario-config" title="Configurações">@Icones.Engrenagem</a>
+        </div>
+    </aside>
+
+    <main class="itz-main">
+        @RenderBody()
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

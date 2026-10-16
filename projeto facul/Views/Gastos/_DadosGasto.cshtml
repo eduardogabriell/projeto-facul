@@ -1,0 +1,16 @@
+@model projeto_facul.Models.Gasto
+
+<dl class="itz-detalhes">
+    <dt>@Html.DisplayNameFor(m => m.Descricao)</dt>
+    <dd>@Model.Descricao</dd>
+    <dt>@Html.DisplayNameFor(m => m.Estabelecimento)</dt>
+    <dd>@Model.Estabelecimento</dd>
+    <dt>@Html.DisplayNameFor(m => m.Categoria)</dt>
+    <dd><span class="itz-badge">@Model.Categoria</span></dd>
+    <dt>@Html.DisplayNameFor(m => m.Contexto)</dt>
+    <dd>@Model.Contexto</dd>
+    <dt>@Html.DisplayNameFor(m => m.Data)</dt>
+    <dd>@Model.Data.ToString("dd/MM/yyyy HH:mm")</dd>
+    <dt>@Html.DisplayNameFor(m => m.Valor)</dt>
+    <dd><strong>@Model.Valor.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</strong></dd>
+</dl>
